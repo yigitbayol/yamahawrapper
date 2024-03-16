@@ -1,0 +1,30 @@
+{
+  "name": "yigitbayol/yamahawrapper",
+  "description": "Yamaha Rest API Laravel Wrapper",
+  "type": "library",
+  "require": {
+    "guzzlehttp/guzzle": "^7.8"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Yigitbayol\\Yamahawrapper\\YamahaWrapperServiceProvider"
+      ],
+      "aliases": {
+        "Yamaha": "Yigitbayol\\Yamahawrapper\\Facades\\Yamaha"
+      }
+    }
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Yigitbayol\\Yamahawrapper\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Yigit Bayol",
+      "email": "yigitbayol@gmail.com"
+    }
+  ]
+}
