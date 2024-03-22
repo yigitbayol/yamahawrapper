@@ -159,4 +159,39 @@ class Invoice
         return $response->json();
     }
 
+
+    /**
+     * allSpareInvoices - Returns all spare invoices by Yamaha
+     *
+     * @param  mixed $partNo
+     * @param  mixed $dmsOrderNo
+     * @param  mixed $fromDate
+     * @param  mixed $toDate
+     * @return void
+     */
+    public function allSpareInvoices($retailInvoiceNo = '', $fromDate = '', $toDate = '')
+    {
+        $this->yamaha->initialize();
+
+        $parameters = [
+            'RetailInvoiceNo' => $retailInvoiceNo,
+            'FromDate' => $fromDate,
+            'ToDate' => $toDate
+        ];
+
+        // Tarih filtrelemesi için mantık
+        if (!$fromDate && $toDate) {
+            $parameters['FromDate'] = Carbon::parse($toDate)->subMonths(3)->format('Y-m-d');
+        }
+
+        if ($fromDate && !$toDate) {
+            $parameters['ToDate'] = Carbon::parse($fromDate)->addMonths(3)->format('Y-m-d');
+        }
+
+        $response = Http::withToken($this->yamaha->getAccessToken())
+            ->post('https://dms-tr.yamnet.com/ymtr_webapi/api/spares/get-all-retail', $parameters);
+
+        return $response->json();
+    }
+
 }
