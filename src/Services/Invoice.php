@@ -161,15 +161,14 @@ class Invoice
 
 
     /**
-     * allSpareInvoices - Returns all spare invoices by Yamaha
+     * getSpareInvoices - Returns all spare invoices
      *
-     * @param  mixed $partNo
-     * @param  mixed $dmsOrderNo
+     * @param  mixed $retailInvoiceNo
      * @param  mixed $fromDate
      * @param  mixed $toDate
      * @return void
      */
-    public function allSpareInvoices($retailInvoiceNo = '', $fromDate = '', $toDate = '')
+    public function getSpareInvoices($retailInvoiceNo = '', $fromDate = '', $toDate = '')
     {
         $this->yamaha->initialize();
 
@@ -179,7 +178,6 @@ class Invoice
             'ToDate' => $toDate
         ];
 
-        // Tarih filtrelemesi için mantık
         if (!$fromDate && $toDate) {
             $parameters['FromDate'] = Carbon::parse($toDate)->subMonths(3)->format('Y-m-d');
         }
